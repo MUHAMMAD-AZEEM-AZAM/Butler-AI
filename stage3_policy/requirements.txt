@@ -1,0 +1,6 @@
+# Stage 3 rule-based planner, demo and tests.
+# No GPU, simulator, model download or API key is needed.
+# Verified on Python 3.14.5 (Windows) with pydantic 2.13.5, PyYAML 6.0.3, pytest 9.1.1.
+pydantic>=2.12
+pyyaml>=6.0.3
+pytest>=8.4

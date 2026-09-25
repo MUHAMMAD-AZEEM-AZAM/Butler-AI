@@ -1,0 +1,100 @@
+<?xml version="1.0" ?>
+<mujoco model="so101_arm_a">
+  <worldbody>
+    <!-- Link base for Arm A mounted on left side of tabletop -->
+    <body name="a_base" pos="-0.2 -0.22 0.70" quat="1 0 0 0" childclass="so101_new_calib">
+      <inertial pos="0.0137179 -5.19711e-05 0.0334843" mass="0.147" fullinertia="0.000114686 0.000136117 0.000130364 -4.59787e-07 4.97151e-06 9.75275e-08"/>
+      <!-- Visual Meshes -->
+      <geom type="mesh" class="visual" pos="-0.00636471 -9.94414e-05 -0.0024" quat="0.5 0.5 0.5 0.5" mesh="base_motor_holder_so101_v1" material="base_motor_holder_so101_v1_material"/>
+      <geom type="mesh" class="visual" pos="-0.00636471 -8.97657e-09 -0.0024" quat="0.5 0.5 0.5 0.5" mesh="base_so101_v2" material="base_so101_v2_material"/>
+      <geom type="mesh" class="visual" pos="0.0263353 -8.97657e-09 0.0437" quat="1 -2.85511e-16 -9.64433e-17 6.12908e-16" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+      <geom type="mesh" class="visual" pos="-0.0309827 -0.000199441 0.0474" quat="0.5 0.5 0.5 0.5" mesh="waveshare_mounting_plate_so101_v2" material="waveshare_mounting_plate_so101_v2_material"/>
+      
+      <!-- Base Frame Site -->
+      <site group="3" name="a_baseframe" pos="8.67362e-19 9.55596e-18 3.46945e-18" quat="1 -8.17396e-19 3.78392e-17 2.22045e-16"/>
+      
+      <!-- Link shoulder -->
+      <body name="a_shoulder" pos="0.0388353 -8.97657e-09 0.0624" quat="3.56167e-16 1.22818e-15 -1 -4.14635e-16">
+        <joint axis="0 0 1" name="a_shoulder_pan" type="hinge" range="-1.91986 1.91986" class="sts3215"/>
+        <inertial pos="-0.0307604 -1.66727e-05 -0.0252713" mass="0.100006" fullinertia="8.3759e-05 8.10403e-05 2.39783e-05 7.55525e-08 -1.16342e-06 1.54663e-07"/>
+        <geom type="mesh" class="visual" pos="-0.0303992 0.000422241 -0.0417" quat="0.5 0.5 0.5 -0.5" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+        <geom type="mesh" class="collision" pos="-0.0303992 0.000422241 -0.0417" quat="0.5 0.5 0.5 -0.5" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+        <geom type="mesh" class="visual" pos="-0.0675992 -0.000177759 0.0158499" quat="0.5 0.5 -0.5 0.5" mesh="motor_holder_so101_base_v1" material="motor_holder_so101_base_v1_material"/>
+        <geom type="mesh" class="collision" pos="-0.0675992 -0.000177759 0.0158499" quat="0.5 0.5 -0.5 0.5" mesh="motor_holder_so101_base_v1" material="motor_holder_so101_base_v1_material"/>
+        <geom type="mesh" class="visual" pos="0.0122008 2.22413e-05 0.0464" quat="0.707107 -0.707107 0 0" mesh="rotation_pitch_so101_v1" material="rotation_pitch_so101_v1_material"/>
+        <geom type="mesh" class="collision" pos="0.0122008 2.22413e-05 0.0464" quat="0.707107 -0.707107 0 0" mesh="rotation_pitch_so101_v1" material="rotation_pitch_so101_v1_material"/>
+        
+        <!-- Link upper_arm -->
+        <body name="a_upper_arm" pos="-0.0303992 -0.0182778 -0.0542" quat="0.5 -0.5 -0.5 -0.5">
+          <joint axis="0 0 1" name="a_shoulder_lift" type="hinge" range="-1.74533 1.74533" class="sts3215"/>
+          <inertial pos="-0.0898471 -0.00838224 0.0184089" mass="0.103" fullinertia="4.08002e-05 0.000147318 0.000142487 -1.97819e-05 -4.03016e-08 8.97326e-09"/>
+          <geom type="mesh" class="visual" pos="-0.11257 -0.0155 0.0187" quat="0 -0.707107 0.707107 0" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+          <geom type="mesh" class="collision" pos="-0.11257 -0.0155 0.0187" quat="0 -0.707107 0.707107 0" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+          <geom type="mesh" class="visual" pos="-0.065085 0.012 0.0182" quat="0 1 0 0" mesh="upper_arm_so101_v1" material="upper_arm_so101_v1_material"/>
+          <geom type="mesh" class="collision" pos="-0.065085 0.012 0.0182" quat="0 1 0 0" mesh="upper_arm_so101_v1" material="upper_arm_so101_v1_material"/>
+          
+          <!-- Link lower_arm -->
+          <body name="a_lower_arm" pos="-0.11257 -0.028 0" quat="0.707107 0 0 0.707107">
+            <joint axis="0 0 1" name="a_elbow_flex" type="hinge" range="-1.69 1.69" class="sts3215"/>
+            <inertial pos="-0.0980701 0.00324376 0.0182831" mass="0.104" fullinertia="2.87438e-05 0.000159844 0.00014529 7.41152e-06 1.26409e-06 -4.90188e-08"/>
+            <geom type="mesh" class="visual" pos="-0.0648499 -0.032 0.0182" quat="0 1 0 0" mesh="under_arm_so101_v1" material="under_arm_so101_v1_material"/>
+            <geom type="mesh" class="collision" pos="-0.0648499 -0.032 0.0182" quat="0 1 0 0" mesh="under_arm_so101_v1" material="under_arm_so101_v1_material"/>
+            <geom type="mesh" class="visual" pos="-0.0648499 -0.032 0.018" quat="0 -1 0 0" mesh="motor_holder_so101_wrist_v1" material="motor_holder_so101_wrist_v1_material"/>
+            <geom type="mesh" class="collision" pos="-0.0648499 -0.032 0.018" quat="0 -1 0 0" mesh="motor_holder_so101_wrist_v1" material="motor_holder_so101_wrist_v1_material"/>
+            <geom type="mesh" class="visual" pos="-0.1224 0.0052 0.0187" quat="0 0 1 0" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+            <geom type="mesh" class="collision" pos="-0.1224 0.0052 0.0187" quat="0 0 1 0" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+            
+            <!-- Link wrist -->
+            <body name="a_wrist" pos="-0.1349 0.0052 0" quat="0.707107 0 0 -0.707107">
+              <joint axis="0 0 1" name="a_wrist_flex" type="hinge" range="-1.65806 1.65806" class="sts3215"/>
+              <inertial pos="-0.000103312 -0.0386143 0.0281156" mass="0.079" fullinertia="3.68263e-05 2.5391e-05 2.1e-05 1.7893e-08 -5.28128e-08 3.6412e-06"/>
+              <geom type="mesh" class="visual" pos="0 -0.0424 0.0306" quat="0.5 0.5 0.5 -0.5" mesh="sts3215_03a_no_horn_v1" material="sts3215_03a_no_horn_v1_material"/>
+              <geom type="mesh" class="collision" contype="0" conaffinity="0" pos="0 -0.0424 0.0306" quat="0.5 0.5 0.5 -0.5" mesh="sts3215_03a_no_horn_v1" material="sts3215_03a_no_horn_v1_material"/>
+              <geom type="mesh" class="visual" pos="0 -0.028 0.0181" quat="0.5 -0.5 -0.5 -0.5" mesh="wrist_roll_pitch_so101_v2" material="wrist_roll_pitch_so101_v2_material"/>
+              <geom type="mesh" class="collision" contype="0" conaffinity="0" pos="0 -0.028 0.0181" quat="0.5 -0.5 -0.5 -0.5" mesh="wrist_roll_pitch_so101_v2" material="wrist_roll_pitch_so101_v2_material"/>
+              
+              <!-- Link gripper base -->
+              <body name="a_gripper_base" pos="0 -0.0611 0.0181" quat="0.0172091 -0.0172091 0.706897 0.706897">
+                <joint axis="0 0 1" name="a_wrist_roll" type="hinge" range="-2.74385 2.84121" class="sts3215"/>
+                <inertial pos="0.000213627 0.000245138 -0.025187" mass="0.087" fullinertia="2.75087e-05 4.33657e-05 3.45059e-05 -3.35241e-07 -5.7352e-06 -5.17847e-08"/>
+                <geom type="mesh" class="visual" pos="0.0077 0.0001 -0.0234" quat="0.707107 -0.707107 0 0" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+                <geom type="mesh" class="collision" contype="0" conaffinity="0" pos="0.0077 0.0001 -0.0234" quat="0.707107 -0.707107 0 0" mesh="sts3215_03a_v1" material="sts3215_03a_v1_material"/>
+                <geom type="mesh" class="visual" pos="0 -0.000218214 0.000949706" quat="0 1 0 0" mesh="wrist_roll_follower_so101_v1" material="wrist_roll_follower_so101_v1_material"/>
+                <geom name="a_follower_jaw_geom" type="mesh" class="collision" contype="0" conaffinity="0" pos="0 -0.000218214 0.000949706" quat="0 1 0 0" mesh="wrist_roll_follower_so101_v1" material="wrist_roll_follower_so101_v1_material"/>
+                <geom name="a_fixed_finger_pad" type="capsule" fromto="0.003 -0.003 -0.005 -0.003 -0.001 -0.042" size="0.005" friction="2 0.01 0.001" rgba="1 0.82 0.12 1"/>
+                <!-- Fingertip pad along the fixed finger (collision group 2: bottle/mug body grasps only) -->
+                <geom name="a_fixed_tip_pad" type="capsule" fromto="-0.005 -0.001 -0.045 -0.007 0 -0.098" size="0.004" friction="2 0.01 0.001" rgba="1 0.82 0.12 1" contype="2" conaffinity="2"/>
+
+                <!-- Precision Pinch Site at true jaw midpoint -->
+                <site group="3" name="a_pinch_site" pos="0.0045 0 -0.0382" size="0.005" rgba="0 0 0 0"/>
+                <!-- Axis of a 48 mm cylinder held between the fingertips (side grasp) -->
+                <site group="3" name="a_side_grasp_site" pos="0.025 0 -0.085" size="0.005" rgba="0 0 0 0"/>
+                <site group="3" name="a_gripperframe" pos="-0.0079 -0.000218121 -0.0981274" quat="0.707107 0 0.707107 0"/>
+                
+                <!-- Moving Jaw Link -->
+                <body name="a_moving_jaw" pos="0.0202 0.0188 -0.0234" quat="0.707107 0.707107 0 0">
+                  <joint axis="0 0 1" name="a_gripper" type="hinge" range="-0.17453 1.74533" class="sts3215"/>
+                  <inertial pos="-0.00157495 -0.0300244 0.0192755" mass="0.012" fullinertia="6.61427e-06 1.89032e-06 5.28738e-06 -3.19807e-07 -5.90717e-09 -1.09945e-07"/>
+                  <geom type="mesh" class="visual" pos="0 0 0.0189" quat="1 0 0 0" mesh="moving_jaw_so101_v1" material="moving_jaw_so101_v1_material"/>
+                  <geom name="a_moving_jaw_geom" type="mesh" class="collision" contype="0" conaffinity="0" pos="0 0 0.0189" quat="1 0 0 0" mesh="moving_jaw_so101_v1" material="moving_jaw_so101_v1_material"/>
+                  <geom name="a_moving_finger_pad" type="sphere" pos="-0.0114 -0.0270 0.0187" size="0.007" friction="2 0.01 0.001" rgba="1 0.82 0.12 1"/>
+                  <!-- Fingertip pad along the moving jaw's inner face (collision group 2) -->
+                  <geom name="a_moving_tip_pad" type="capsule" fromto="-0.0114 -0.0270 0.0187 -0.0167 -0.0764 0.0187" size="0.005" friction="2 0.01 0.001" rgba="1 0.82 0.12 1" contype="2" conaffinity="2"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position class="sts3215" name="a_shoulder_pan" joint="a_shoulder_pan" forcerange="-35 35" ctrlrange="-1.91986 1.91986"/>
+    <position class="sts3215" name="a_shoulder_lift" joint="a_shoulder_lift" forcerange="-35 35" ctrlrange="-1.74533 1.74533"/>
+    <position class="sts3215" name="a_elbow_flex" joint="a_elbow_flex" forcerange="-35 35" ctrlrange="-1.69 1.69"/>
+    <position class="sts3215" name="a_wrist_flex" joint="a_wrist_flex" forcerange="-35 35" ctrlrange="-1.65806 1.65806"/>
+    <position class="sts3215" name="a_wrist_roll" joint="a_wrist_roll" forcerange="-35 35" ctrlrange="-2.74385 2.84121"/>
+    <position class="sts3215" name="a_gripper" joint="a_gripper" forcerange="-35 35" ctrlrange="-0.17453 1.74533"/>
+  </actuator>
+</mujoco>

@@ -1,0 +1,114 @@
+{
+  "image": "stage2_perception\\evaluation\\multi_marker_scene.png",
+  "stable": true,
+  "warnings": [],
+  "drawer_state": "closed",
+  "errors": {
+    "plate": {
+      "expected": [
+        0.2,
+        0.18
+      ],
+      "detected": [
+        0.1991666696344813,
+        0.1791666737861102
+      ],
+      "error_m": 0.0011785041692125892,
+      "pass": true
+    },
+    "mug": {
+      "expected": [
+        0.6,
+        0.18
+      ],
+      "detected": [
+        0.5991666755949459,
+        0.1791666737861102
+      ],
+      "error_m": 0.0011784999545246934,
+      "pass": true
+    },
+    "drawer_handle": {
+      "expected": [
+        0.2,
+        0.42
+      ],
+      "detected": [
+        0.1991666696344813,
+        0.41916668332285356
+      ],
+      "error_m": 0.0011784974257527754,
+      "pass": true
+    },
+    "water_bottle": {
+      "expected": [
+        0.6,
+        0.42
+      ],
+      "detected": [
+        0.5991666755949459,
+        0.41916668332285356
+      ],
+      "error_m": 0.0011784932110407628,
+      "pass": true
+    }
+  },
+  "pass": true,
+  "scene": {
+    "objects": [
+      {
+        "name": "water_bottle",
+        "x": 0.5991666755949459,
+        "y": 0.41916668332285356,
+        "z": 0.0,
+        "confidence": 0.9,
+        "pixel_center": [
+          439.5,
+          311.5
+        ],
+        "class_name": "water_bottle"
+      },
+      {
+        "name": "mug",
+        "x": 0.5991666755949459,
+        "y": 0.1791666737861102,
+        "z": 0.0,
+        "confidence": 0.9,
+        "pixel_center": [
+          439.5,
+          167.5
+        ],
+        "class_name": "mug"
+      },
+      {
+        "name": "plate",
+        "x": 0.1991666696344813,
+        "y": 0.1791666737861102,
+        "z": 0.0,
+        "confidence": 0.9,
+        "pixel_center": [
+          199.5,
+          167.5
+        ],
+        "class_name": "plate"
+      }
+    ],
+    "drawer": {
+      "detected": true,
+      "center_x": 0.1991666696344813,
+      "center_y": 0.41916668332285356,
+      "open_fraction": 0.0,
+      "handle_xy": [
+        199.5,
+        311.5
+      ],
+      "pose": {
+        "x": 0.1991666696344813,
+        "y": 0.41916668332285356,
+        "state": "closed"
+      }
+    },
+    "stable": true,
+    "warnings": []
+  }
+}

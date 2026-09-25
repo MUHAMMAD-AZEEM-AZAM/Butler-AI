@@ -1,0 +1,9 @@
+{
+  "device": "simulation",
+  "iterations": 20,
+  "warmup": 5,
+  "avg_latency_ms": 1.875000000001875e-05,
+  "throughput_fps": 53333333.33328,
+  "precision": "float32",
+  "notes": "This is a placeholder benchmark; run on Intel hardware for official results."
+}

@@ -1,0 +1,10 @@
+numpy>=1.23.0
+opencv-python>=4.8.0
+matplotlib>=3.7.0
+pandas>=2.0.0
+PyYAML>=6.0
+
+# Intel/OpenVINO is optional in the starter scaffold and should be installed
+# on the actual hardware target if available.
+# openvino==2024.*
+# openvino-dev==2024.*

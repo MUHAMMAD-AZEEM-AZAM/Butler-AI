@@ -1,0 +1,123 @@
+# Stage 3 rule-based planner configuration.
+#
+# FRAME: every coordinate here, and every coordinate the planner accepts from
+# SceneState, is the MuJoCo world frame of assets/bimanual_scene.xml, in metres:
+# origin on the floor below the table centre, +z up, table top at z = 0.70.
+# Arm A base (-0.20, -0.22, 0.70), arm B base (-0.20, +0.22, 0.70); both reach toward +x.
+#
+# Geometry was read from assets/bimanual_scene.xml, the SO-101 arm XMLs and the
+# tableware meshes at commit 3796322. stage3_policy/tests/test_config.py
+# re-derives the table, drawer, handle and arm-base numbers from the XML so drift is caught.
+#
+# Grip forces, approach heights, margins, slots and reach radii are INITIAL,
+# TUNABLE HEURISTICS. They are not measured and not safety-validated.
+
+frame:
+  name: mujoco_world
+  # Every object a task uses must be observed inside this box. Coordinates outside
+  # it are reported as a frame mismatch (e.g. perception's 0..0.8 m table-corner
+  # frame with z = 0) instead of being silently reinterpreted.
+  workspace:
+    x: [-0.60, 0.60]
+    y: [-0.45, 0.45]
+    z: [0.66, 1.20]
+
+table:
+  x: [-0.60, 0.60]            # table_surface box: centre (0, 0), half-size 0.60 x 0.45
+  y: [-0.45, 0.45]
+  surface_z: 0.70             # box centre z 0.68 + half-height 0.02
+  edge_margin_m: 0.05         # min gap between an object's footprint circle and the table edge
+  place_clearance_m: 0.02     # min gap between a placed footprint and other footprints / keep-out zones
+  release_height_m: 0.005     # object base height above the surface at release
+  on_table_tolerance_m: 0.03  # an object whose base z is within this of surface_z occupies the table
+
+# Axis-aligned rectangles on the table that PLACE footprints must stay clear of.
+keepout_zones:
+  top_drawer_swept:           # cabinet (x 0.09..0.35) plus the fully open tray and handle (slide 0.16 m toward -x)
+    x: [-0.10, 0.35]
+    y: [-0.35, -0.09]
+  arm_a_base:
+    x: [-0.28, -0.12]
+    y: [-0.30, -0.14]
+  arm_b_base:
+    x: [-0.28, -0.12]
+    y: [0.14, 0.30]
+
+# Reach is a heuristic WARNING only (horizontal distance from the arm base to the
+# gripper target). Stage 4's inverse kinematics is the authority on reachability.
+arms:
+  A: {base_xy: [-0.20, -0.22], max_reach_m: 0.42}
+  B: {base_xy: [-0.20, 0.22], max_reach_m: 0.42}
+
+# SceneState reports one reference point per object. The planner assumes it is the
+# MuJoCo body origin (base centre), which is what Stage 4's get_object_positions returns.
+# Action.target_pose = reference point + grasp_offset_m (the gripper pinch point).
+# grip_force is the normalized 0..1 Action field; Stage 4 has not defined its mapping yet.
+# requires_orientation: grasping/placing needs the object's yaw, which SceneState and
+# Action cannot carry, so PICK/PLACE of that object is rejected until the contract has it.
+objects:
+  plate:
+    footprint_radius_m: 0.060
+    height_m: 0.012
+    grasp_offset_m: [-0.05, 0.0, 0.025]   # rim nearest the arms; same offset as the Stage 4 branch plate primitive
+    grip_force: 0.6
+    approach_height_m: 0.08
+  mug:
+    footprint_radius_m: 0.062             # includes the handle (mesh y extent 0.062)
+    height_m: 0.096
+    grasp_offset_m: [0.0, 0.0, 0.048]
+    grip_force: 0.5
+    approach_height_m: 0.10
+  water_bottle:
+    footprint_radius_m: 0.025
+    height_m: 0.160
+    grasp_offset_m: [0.0, 0.0, 0.080]
+    grip_force: 0.55
+    approach_height_m: 0.12
+  spoon:
+    footprint_radius_m: 0.085             # conservative circle (no yaw): mesh spans x -0.056..+0.085 from origin
+    height_m: 0.030
+    grasp_offset_m: [0.0, 0.0, 0.005]
+    grip_force: 0.35
+    approach_height_m: 0.06
+    requires_orientation: true            # 1.2 cm wide handle: jaw direction depends on yaw
+  fork:
+    footprint_radius_m: 0.073             # conservative circle (no yaw): mesh spans x -0.067..+0.073 from origin
+    height_m: 0.020
+    grasp_offset_m: [0.0, 0.0, 0.005]
+    grip_force: 0.35
+    approach_height_m: 0.06
+    requires_orientation: true
+
+drawers:
+  top_drawer:
+    footprint: {x: [0.09, 0.35], y: [-0.35, -0.09]}   # closed cabinet
+    interior_top_z: 0.751                               # underside of cabinet_top (0.70 + 0.056 - 0.005); below it, inside the footprint = inside the drawer
+    # drawer_unit (0.22,-0.22,0.70) + sliding_tray (0,0,0.008) + drawer_handle_site (-0.15,0,0.024).
+    # A static fixture pose, valid ONLY while the drawer is closed and the cabinet is not randomized.
+    handle_grasp_point_closed: [0.07, -0.22, 0.732]
+    grip_force: 0.8
+    approach_height_m: 0.06
+
+# PLACE never targets an object's current position. Each destination is a region of
+# the table surface with candidate footprint centres [x, y] per object, tried in
+# order; the first one passing the edge-margin, keep-out and clearance checks is used.
+# Utensils have no slots: their placement needs yaw (see requires_orientation).
+destinations:
+  table:
+    slots:
+      plate: [[0.06, 0.05], [-0.04, 0.02]]    # slot 0 is the Stage 4 branch plate target
+      mug: [[0.14, 0.18], [0.24, 0.30]]
+      water_bottle: [[0.16, -0.03]]
+
+pour:
+  sources: [water_bottle]
+  receivers: [mug]
+  clearance_above_rim_m: 0.06   # pour point height above the receiver's rim
+
+# Only constraints listed here are honoured; any other constraint string is rejected.
+constraints:
+  keep_glasses_away_from_edge:
+    kind: edge_margin
+    applies_to: [mug, water_bottle]   # explicit list; "glasses" is not inferred from object names
+    edge_margin_m: 0.15

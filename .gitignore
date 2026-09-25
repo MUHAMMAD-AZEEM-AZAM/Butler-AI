@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Secrets
+.env
+
+# Large models / training artifacts (keep the MuJoCo XML scenes in git)
+assets/models/
+*.safetensors
+*.ckpt
+*.pt
+*.onnx
+
+# Generated demonstration datasets & episodes
+data/lerobot_bimanual_v2/
+data/raw_skill_demos/
+data/raw_skill_demos_*/
+data/test_collection/
+data/butler_demos/
+data/*.zip
+*.parquet
+
+# Generated benchmark/export artifacts (regenerate via stage5_openvino)
+outputs/
+
+# Stray driver/compiler debug dumps
+kernel.errors.txt
+MUJOCO_LOG.TXT
+
+# Video recordings & generated animations
+*.mp4
+*.avi
+*.mov
+*.webm
+*.gif
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+.claude/
+
+# Local debug screenshots (not project assets)
+scratch/*.png

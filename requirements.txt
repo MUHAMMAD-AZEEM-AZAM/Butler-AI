@@ -1,0 +1,15 @@
+# --- Needed to run the stub pipeline (scripts/*.py) — install just these three ---
+pydantic>=2.5
+pyyaml>=6.0
+numpy                  # stage2/3/4 math
+
+# --- Needed only for real stage implementations, not for the stubs ---
+opencv-python          # stage2 perception
+mujoco                 # stage4 simulation
+lerobot                # stage3 policy training/inference
+openvino               # stage5 Intel optimization
+speechmatics-python    # stage1 ASR
+anthropic              # stage1 instruction parsing
+
+# --- Dev / test ---
+pytest

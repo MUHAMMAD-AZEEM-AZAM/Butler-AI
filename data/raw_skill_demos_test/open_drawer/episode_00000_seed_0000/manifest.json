@@ -1,0 +1,52 @@
+{
+  "format": "bimanual_raw_demo_v1",
+  "created_at": "2026-09-14T06:42:53.376229+00:00",
+  "task": "Open the top drawer with arm A.",
+  "skill": "open_drawer",
+  "seed": 0,
+  "fps_requested": 20.0,
+  "state": {
+    "name": "observation.state",
+    "shape": [
+      12
+    ],
+    "meaning": "A then B: 5 joints + gripper"
+  },
+  "action": {
+    "name": "action",
+    "shape": [
+      12
+    ],
+    "meaning": "position actuator targets, A then B"
+  },
+  "cameras": [
+    "overhead",
+    "front"
+  ],
+  "frames": 11,
+  "primitive_returned_success": true,
+  "contact_violations": [
+    {
+      "body1": "water_bottle",
+      "body2": "drawer_unit",
+      "distance_m": -0.017152157711789736
+    },
+    {
+      "body1": "water_bottle",
+      "body2": "sliding_tray",
+      "distance_m": -0.009394357666805195
+    },
+    {
+      "body1": "water_bottle",
+      "body2": "a_gripper_base",
+      "distance_m": -0.008333497282388021
+    },
+    {
+      "body1": "sliding_tray",
+      "body2": "a_shoulder",
+      "distance_m": -0.0021687048683889133
+    }
+  ],
+  "accepted_for_training": false,
+  "rejection_reason": "water_bottle/drawer_unit (-17.2 mm); water_bottle/sliding_tray (-9.4 mm); water_bottle/a_gripper_base (-8.3 mm) +1 more"
+}

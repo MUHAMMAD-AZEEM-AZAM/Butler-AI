@@ -1,0 +1,6 @@
+# Learned ACT policy (stage3_policy/learned/). NOT INSTALLED OR RUN in this repo yet.
+# Use a SEPARATE environment: lerobot 0.6.1 requires Python >= 3.12 (its docs use 3.12),
+# torch >= 2.7,< 2.12 and numpy < 2.3, which may conflict with newer MuJoCo/numpy installs.
+# Downloads PyTorch (large). Check disk, time and the accelerator (CPU / Intel XPU) first.
+lerobot[training]==0.6.1
+pyarrow  # frame-level dataset checks in validate_dataset.py
